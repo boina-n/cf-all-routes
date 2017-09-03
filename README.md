@@ -1,8 +1,7 @@
 # cf-all-routes Plugin
-This CF CLI Plugin to shows all routes for each org and space you have permission to access.
+This CF CLI Plugin shows all routes for each org and space you have permission to access on your Cloud Foundry instance.
 
 # Usage
-
 `$ cf all-routes`
 ```
 myapp.boina.fr
