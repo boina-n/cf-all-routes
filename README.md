@@ -2,8 +2,8 @@
 This CF CLI Plugin to shows all routes for each org and space you have permission to access.
 
 #Usage
-cf all-routes
 
+`cf all-routes`
 ```
 myapp.boina.fr
 myapp1.boina.fr
