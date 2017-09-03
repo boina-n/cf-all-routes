@@ -1,7 +1,7 @@
 # cf-all-routes Plugin
 This CF CLI Plugin to shows all routes for each org and space you have permission to access.
 
-#Usage
+# Usage
 
 `$ cf all-routes`
 ```
@@ -9,9 +9,9 @@ myapp.boina.fr
 myapp1.boina.fr
 ```
 
-##Installation
+## Installation
 
-#####Install from Source (need to have [Go](http://golang.org/dl/) installed)
+##### Install from Source (need to have [Go](http://golang.org/dl/) installed)
   ```
   $ go get code.cloudfoundry.org/cli/plugin
   $ go get github.com/cloudfoundry/cli
