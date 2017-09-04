@@ -12,7 +12,7 @@ func (c *AllRoutesPlugin) Run(cliConnection plugin.CliConnection, args []string)
 
 	if args[0] == "all-routes" {
 
-    c.getCurrentOrgAndSpace(cliConnection)
+    c.getRoutes(cliConnection)
 
 }
 
@@ -45,7 +45,7 @@ func (c *AllRoutesPlugin) GetMetadata() plugin.PluginMetadata {
 }
 
 //func (c *AllRoutesPlugin) getObjects (cliConnection) (apiURL){
-func (c *AllRoutesPlugin) getCurrentOrgAndSpace(cliConnection plugin.CliConnection, args ...string) {
+func (c *AllRoutesPlugin) getRoutes(cliConnection plugin.CliConnection, args ...string) {
   //var apiURL interface{}
 
 
