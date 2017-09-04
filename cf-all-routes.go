@@ -12,45 +12,12 @@ func (c *AllRoutesPlugin) Run(cliConnection plugin.CliConnection, args []string)
 
 	if args[0] == "all-routes" {
 
-		var apiURL interface{}
-		apiURL = "/v2/spaces"
+    c.getCurrentOrgAndSpace(cliConnection)
 
-		json, _ := cfcurl.Curl(cliConnection, apiURL.(string))
-		resources := toJSONArray(json["resources"])
-
-		for _, spaceIntf := range resources {
-			space := toJSONObject(spaceIntf)
-			metadata := toJSONObject(space["metadata"])
-
-			apiURL="/v2/spaces/" +metadata["guid"].(string)
-
-			json, _ :=cfcurl.Curl(cliConnection, apiURL.(string))
-			entity := toJSONObject(json["entity"])
-			routes_urls := entity["routes_url"]
-
-
-			json1, _ := cfcurl.Curl(cliConnection, routes_urls.(string))
-			resources := toJSONArray(json1["resources"])
-			for _, routeIntf := range resources {
-				route := toJSONObject(routeIntf)
-				entity := toJSONObject(route["entity"])
-				host := entity["host"]
-				domainguid := entity["domain_guid"]
-
-
-				apiURL="/v2/domains/" +domainguid.(string)
-
-				json, _  := cfcurl.Curl(cliConnection, apiURL.(string))
-				entity2 := toJSONObject(json["entity"])
-				domain := entity2["name"]
-
-				fmt.Print(host,".",domain,"\n")
-			}
-
-		}
 }
 
 }
+
 func (c *AllRoutesPlugin) GetMetadata() plugin.PluginMetadata {
 	return plugin.PluginMetadata{
 		Name: "all-routes",
@@ -75,6 +42,64 @@ func (c *AllRoutesPlugin) GetMetadata() plugin.PluginMetadata {
 			},
 		},
 	}
+}
+
+//func (c *AllRoutesPlugin) getObjects (cliConnection) (apiURL){
+func (c *AllRoutesPlugin) getCurrentOrgAndSpace(cliConnection plugin.CliConnection, args ...string) {
+  //var apiURL interface{}
+
+
+  //items = append(items,"hostname,domain name,app")
+var nextURL interface{}
+items := []string{}
+	nextURL = "/v2/routes"
+	for nextURL != nil {
+	//json, err := cfcurl.Curl(cliConnection, nextURL.(string))
+
+  json, _ := cfcurl.Curl(cliConnection, nextURL.(string))
+  resources := toJSONArray(json["resources"])
+
+	  for _, spaceIntf := range resources {
+	    space := toJSONObject(spaceIntf)
+	    entity := toJSONObject(space["entity"])
+
+			host := entity["host"].(string)
+			domain_url := entity["domain_url"].(string)
+			space_url := entity["space_url"].(string)
+			apps_url := entity["apps_url"].(string)
+
+			json, _ := cfcurl.Curl(cliConnection, domain_url)
+			entity = toJSONObject(json["entity"])
+			domain_name := entity["name"].(string)
+
+			json, _ = cfcurl.Curl(cliConnection, space_url)
+			entity = toJSONObject(json["entity"])
+			space_name := entity["name"].(string)
+			organization_url := entity["organization_url"].(string)
+
+			json, _ = cfcurl.Curl(cliConnection, organization_url)
+			entity = toJSONObject(json["entity"])
+			organization_name := entity["name"].(string)
+
+			json, _ = cfcurl.Curl(cliConnection, apps_url)
+			resource := toJSONArray(json["resources"])
+
+			var app_name string
+			for _, spaceIntf := range resource {
+			 space := toJSONObject(spaceIntf)
+			 entity := toJSONObject(space["entity"])
+			 app_name = entity["name"].(string)
+			}
+
+			var record interface{}
+			record = host+","+domain_name+","+organization_name+","+space_name+","+app_name
+			items = append(items,record.(string))
+			for _,i := range items {
+				fmt.Println(i)
+			}
+		}
+	nextURL = json["next_url"]
+}
 }
 
 func main() {
