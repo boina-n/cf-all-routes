@@ -51,7 +51,7 @@ func (c *AllRoutesPlugin) getRoutes(cliConnection plugin.CliConnection, args ...
 
   //items = append(items,"hostname,domain name,app")
 var nextURL interface{}
-items := []string{}
+//items := []string{}
 	nextURL = "/v2/routes"
 	for nextURL != nil {
 	//json, err := cfcurl.Curl(cliConnection, nextURL.(string))
@@ -93,10 +93,11 @@ items := []string{}
 
 			var record interface{}
 			record = host+","+domain_name+","+organization_name+","+space_name+","+app_name
-			items = append(items,record.(string))
-			for _,i := range items {
-				fmt.Println(i)
-			}
+			fmt.Println(record)
+			//items = append(items,record.(string))
+			//for _,i := range items {
+				//fmt.Println(i)
+			//}
 		}
 	nextURL = json["next_url"]
 }
