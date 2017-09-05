@@ -1,11 +1,16 @@
 # cf-all-routes Plugin
 This CF CLI Plugin shows all routes for each org and space you have permission to access on your Cloud Foundry instance.
+Results is returned in csv format with values separated with commas.
 
 # Usage
 `$ cf all-routes`
 ```
-myapp.boina.fr
-myapp1.boina.fr
+myapp,cfapps.io,ctne,prod,ctne
+www,boina.fr,ctne,prod,ctne
+,boina.fr,ctne,prod,ctne
+test1,boina.fr,ctne,react,
+test2,boina.fr,ctne,react,
+
 ```
 
 ## Installation
@@ -26,4 +31,5 @@ $ cf install-plugin  https://github.com/boina-n/cf-all-routes/releases/download/
 ```
 ## ToDo
 - as I user I also want to be able to see the path of the routes
+- Add header on the csv response.
 
