@@ -20,3 +20,10 @@ myapp1.boina.fr
   $ go build
   $ cf install-plugin cf-all-routes
   ```
+##### Install from internet (need to have cf CLI installed)
+```
+$ cf install-plugin  https://github.com/boina-n/cf-all-routes/releases/download/v2.0.0/linux-amd64-cf-all-routes-release
+
+## ToDo
+- as I user I also want to be able to see the path of the routes
+
