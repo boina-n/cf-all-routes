@@ -10,8 +10,15 @@ www,boina.fr,ctne,prod,ctne
 ,boina.fr,ctne,prod,ctne
 test1,boina.fr,ctne,react,
 test2,boina.fr,ctne,react,
-
 ```
+
+| hostname | domain name | organization | space | app  |
+|----------|-------------|--------------|-------|------|
+| myapp    | cfapps.io   | ctne         | prod  | ctne |
+| www      | boina.fr    | ctne         | prod  | ctne |
+|          | boina.fr    | ctne         | prod  | ctne |
+| test1    | boina.fr    | ctne         | react |      |
+| test2    | boina.fr    | ctne         | react |      |
 
 ## Installation
 
