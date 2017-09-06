@@ -37,7 +37,7 @@ func (c *AllRoutesPlugin) GetMetadata() plugin.PluginMetadata {
 				HelpText: "cf all-routes",
 
 				UsageDetails: plugin.Usage{
-					Usage: "all-routesd\n   cf all-routes",
+					Usage: "all-routes\n   cf all-routes",
 				},
 			},
 		},
@@ -46,27 +46,25 @@ func (c *AllRoutesPlugin) GetMetadata() plugin.PluginMetadata {
 
 //func (c *AllRoutesPlugin) getObjects (cliConnection) (apiURL){
 func (c *AllRoutesPlugin) getRoutes(cliConnection plugin.CliConnection, args ...string) {
-  //var apiURL interface{}
 
+header:="hostname,domain_name,organization_name,space_name,app_name,path"
+fmt.Println(header)
 
-  //items = append(items,"hostname,domain name,app")
 var nextURL interface{}
-//items := []string{}
 	nextURL = "/v2/routes"
 	for nextURL != nil {
-	//json, err := cfcurl.Curl(cliConnection, nextURL.(string))
 
   json, _ := cfcurl.Curl(cliConnection, nextURL.(string))
   resources := toJSONArray(json["resources"])
 
-	  for _, spaceIntf := range resources {
-	    space := toJSONObject(spaceIntf)
-	    entity := toJSONObject(space["entity"])
-
+	  for _, i := range resources {
+	    res := toJSONObject(i)
+	    entity := toJSONObject(res["entity"])
 			host := entity["host"].(string)
 			domain_url := entity["domain_url"].(string)
 			space_url := entity["space_url"].(string)
 			apps_url := entity["apps_url"].(string)
+			path := entity["path"].(string)
 
 			json, _ := cfcurl.Curl(cliConnection, domain_url)
 			entity = toJSONObject(json["entity"])
@@ -82,22 +80,19 @@ var nextURL interface{}
 			organization_name := entity["name"].(string)
 
 			json, _ = cfcurl.Curl(cliConnection, apps_url)
-			resource := toJSONArray(json["resources"])
+			resources := toJSONArray(json["resources"])
 
 			var app_name string
-			for _, spaceIntf := range resource {
-			 space := toJSONObject(spaceIntf)
-			 entity := toJSONObject(space["entity"])
+			for _, j := range resources {
+			 res := toJSONObject(j)
+			 entity := toJSONObject(res["entity"])
 			 app_name = entity["name"].(string)
 			}
 
 			var record interface{}
-			record = host+","+domain_name+","+organization_name+","+space_name+","+app_name
+			record = host+","+domain_name+","+organization_name+","+space_name+","+app_name+","+path
 			fmt.Println(record)
-			//items = append(items,record.(string))
-			//for _,i := range items {
-				//fmt.Println(i)
-			//}
+
 		}
 	nextURL = json["next_url"]
 }
