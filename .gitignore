@@ -1,4 +1,5 @@
 cf-all-routes
 cf-all-routes.exe
 linux-amd64-cf-all-routes-release*
+windows-amd64-cf-all-routes-release*
 reinstall-plugin.sh

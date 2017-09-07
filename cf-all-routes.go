@@ -22,9 +22,9 @@ func (c *AllRoutesPlugin) GetMetadata() plugin.PluginMetadata {
 	return plugin.PluginMetadata{
 		Name: "all-routes",
 		Version: plugin.VersionType{
-			Major: 1,
+			Major: 2,
 			Minor: 0,
-			Build: 0,
+			Build: 1,
 		},
 		MinCliVersion: plugin.VersionType{
 			Major: 6,
